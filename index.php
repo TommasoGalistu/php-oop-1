@@ -3,8 +3,8 @@
 class Movie 
 {
     public string $title = '';
-    public string $actors = '';
-    public string $genres = '';
+    public array $actors = [];
+    public array $genres = [];
     public int $rating;
     public string $lenguage;
 
@@ -16,12 +16,28 @@ class Movie
         $this->lenguage = $_lenguage;
     }
     public function printElements() {
-        // Usa get_object_vars per ottenere un array associativo di tutte le proprietà
+        // trasformo gli attributi in array ass
         $properties = get_object_vars($this);
 
-        // Cicla attraverso le proprietà e stampa chiave e valore
+    //    faccio un ciclo e li stampo
         foreach ($properties as $property => $value) {
-            echo "<p>" . ucfirst($property) . ": " . $value . "</p>";
+            echo "<p>" . ucfirst($property) . ": ";
+
+            // se è un array concateno
+            if (is_array($value)) {
+                
+                echo "<ul>";
+                foreach ($value as $item) {
+                    echo "<li>" . $item . "</li>";
+                }
+                echo "</ul>";
+
+            } else {
+                // se non è un array stampo semplicemente il valore
+                echo $value;
+            }
+
+            echo "</p>";
         }
         echo "<br>";
     }
@@ -29,14 +45,8 @@ class Movie
 
 }
 
-$film1 = new Movie('Pulp Fiction','John Travolta', 'drammatico', 10, 'English');
-$film2 = new Movie(
-    'Il Signore degli Anelli', 
-    'Elijah Wood', 
-    'fantasy', 
-    10, 
-    'English'
-);
+$film1 = new Movie('Pulp Fiction',['John Travolta', 'Samuel L. Jackson', 'Uma Thurman'], ['drammatico', 'gangster', 'thriller'], 10, 'English');
+$film2 = new Movie('Il Signore degli Anelli',['Elijah Wood', 'Ian McKellen', 'Viggo Mortensen'],['fantasy', 'avventura', 'epico'], 10, 'English');
 ?>
 
 <!DOCTYPE html>
@@ -49,8 +59,8 @@ $film2 = new Movie(
 <body>
     
         
-            <?php $film1->printElements() ?>
-            <?php $film2->printElements() ?>
+    <?php $film1->printElements() ?>
+    <?php $film2->printElements() ?>
         
     
 </body>
