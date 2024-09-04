@@ -34,7 +34,7 @@ class Movie
                 echo "</ul>";
 
             } else {
-                // se non è un array stampo semplicemente il valore
+                // se non è un array stampo semplicemente il valore in p
                 echo $value;
             }
 
